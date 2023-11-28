@@ -1,0 +1,28 @@
+﻿@model  Category
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_LayoutEditingPage.cshtml";
+}
+
+<div>
+    <form action="/CateEdit/SubUpdate" class="login-form">
+                    <div class="form-group">
+		      			<input type="text" id="cateID" name="cateID" class="form-control rounded-left" placeholder="cateID" value="@Model.cateID" readonly>
+		      		</div>
+		      		<div class="form-group">
+		      			<input type="text" id="categories" name="categories" class="form-control rounded-left" placeholder="categories"  value="@Model.categories"required>
+		      		</div>
+					<div class="form-group">
+		      			<input type="text" id="bkgimg" name="bkgimg" class="form-control rounded-left" placeholder="bkgimg"  value="@Model.bkgimg"required>
+		      		</div>
+
+                      <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Submit</button>
+		</form>			
+	          
+</div>
+
+<div>
+      <a asp-action="CateEditPage">Back to List</a>
+</div>
+
+

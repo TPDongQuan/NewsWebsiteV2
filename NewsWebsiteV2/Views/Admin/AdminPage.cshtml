@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Admin Page";
+    Layout = "~/Views/Shared/_LayoutLoginRegister.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="~/css/stylesLogin.css" rel="stylesheet" />
+    <link href="~/img/download2.ico" rel="icon" type="image/x-icon" /> <!--Đổi sang dạng ico add favicon-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <header class="masthead" style="background-image: url('img/post-bg.jpg')">
+        <!-- .NET 6 đã tối ưu link ảnh không cần ~/ -->
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1><i>Admin Page</i></h1>
+                        <span class="subheading">Please login your Admin account!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="ftco-section">
+        <!-- Tạo khu vực chứa section: (giống thẻ div)-->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section"><i>Admin Login Form</i></h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="icon d-flex align-items-center justify-content-center" style="background-color: lightblue">
+                            <img src="/img/user.png" />
+                        </div>
+                        <h3 class="text-center mb-4">Have an account?</h3>
+                        <div action="/Admin/AdminLogin" class="login-form" id="login" method="post">
+                            <div class="form-group">
+                                <input type="text" id="userName" name="userName" class="form-control rounded-left" placeholder="Username" required>
+                            </div>
+                            <div class="form-group d-flex">
+                                <input type="password" id="passWord" name="passWord" class="form-control rounded-left" placeholder="Password" required>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-50">
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        Remember Me
+                                        <input type="checkbox" checked>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="w-50 text-md-right">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button onclick="log()" class="btn btn-primary rounded submit p-3 px-5">Lets in</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Ajax js: - sử dụng từ 1 controller. url: "controller" nào thì chỉ nhận chay controller đó.    
+                 - khai báo các cấu trúc cơ bản, 
+                 - thực hiện những code đơn giản bên trong nó (nếu lỗi truyền dữ liệu từ html xuống thì console.log(biến) để ktra có vào chưa. 
+                 - biến id cần có $#...
+                 - success là hàm thực hiện lệnh code((khi controller thành công))
+                 - ép kiểu từ JSON sang obj
+                 - window.location = "Trang kết quả sau hành động trên"
+                 - Trả "result" theo kết quả ajax controller đó.(https://www.imic.edu.vn/tin-tuc-cong-nghe/27818/su-dung-jquery-ajax-trong-asp-net-mvc.htmlhttps://www.imic.edu.vn/tin-tuc-cong-nghe/27818/su-dung-jquery-ajax-trong-asp-net-mvc.html)-->
+
+    <script> 
+        function log() {
+            $.ajax({
+                url: "/Admin/AdminLogin",  
+                dataType: "text",
+                type: "POST",
+                data: {
+                    userName: $('#userName').val(),
+                    passWord: $('#passWord').val(),
+                },
+                cache: !1,
+                success:  
+                function(result) {
+                    var obj = JSON.parse(result);
+                    if (obj.checker == true) { 
+                        alert(obj.message);
+                        window.location = 'https://localhost:7250/Edit/EditPage' 
+                    }
+                    else { 
+                        alert(obj.message);
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
+
+

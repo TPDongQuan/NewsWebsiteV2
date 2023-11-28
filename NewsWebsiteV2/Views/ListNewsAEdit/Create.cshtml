@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Create page";
+	Layout = "~/Views/Shared/_LayoutEditingPage.cshtml";
+} 
+<form action="/ListNewsAEdit/SubCreate" class="login-form">
+	<div class="form-group">
+	<input type="text" id="listnewsA" name="listnewsA" class="form-control rounded-left" placeholder="listnewsA" required>
+	</div>
+	<div class="form-group">
+		<input type="text" id="cateID" name="cateID" class="form-control rounded-left" placeholder="cateID" required>
+	</div>
+	<div class="form-group">
+	<a asp-controller="ListNewsAEdit" asp-action="ThanhCong" target="_blank">
+	    <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Submit</button>
+	</a>
+	</div>
+</form>

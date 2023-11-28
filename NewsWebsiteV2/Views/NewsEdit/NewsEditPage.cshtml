@@ -1,0 +1,103 @@
+﻿@model IEnumerable<News>
+@{
+    ViewData["Title"] = "User Editing Page";
+    Layout = "~/Views/Shared/_LayoutEditingPage.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="~/css/Adminstyles.css" rel="stylesheet"/>
+    <link href="~/img/download2.ico" rel="icon" type="image/x-icon" /> <!--Đổi sang dạng ico add favicon-->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+<div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> <!---Tạo bảng-->
+                <thead> <!--Danh sách bảng-->
+                    <tr>
+                        <th>
+                            NewsID
+                        </th>
+                        <th>
+                            Titles
+                        </th>
+                        <th>
+                            Contents
+                        </th>
+                        <th>
+                            Authors
+                        </th>
+                         <th>
+                            ListNewsAID
+                        </th>
+                        <th>
+                            Date Post
+                        </th>
+                        <th>
+                            Edit
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <!--Hiễn thị kq nhập từ ThemCongViec-->
+                <tbody> <!--Upload dữ liệu vào từ model (từ SQL)-->
+                        @if (Model != null) 
+                        {
+                           @foreach (var item in Model){
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.newsID)</td> <!--Truyền dữ liệu xuống -->
+                                    <td>@Html.DisplayFor(modelItem => item.titles)</td>
+                                    <td>@Html.Raw(item.contents)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.authors)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.listnewsAID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DatePost)</td>
+                                    <td>@Html.ActionLink("Edit","Update",item)</td>
+                                    <td>
+                                        @Html.ActionLink("Delete","Delete",item)  <!-- ActionLink liên kết từ View-Controller vào Lệnh "Delete", giá ttri item đó-->
+                                    </td>
+                                 </tr>
+                            }
+                        }
+                </tbody>
+            </table>
+            <div class="clearfix">
+				        <div class="hint-text">Showing <b>5</b> out of <b>10</b> entries</div>
+				        <ul class="pagination">
+					        <li class="page-item disabled"><a href="#">Previous</a></li>
+					        <li class="page-item"><a href="#" class="page-link">1</a></li>
+					        <li class="page-item"><a href="#" class="page-link">2</a></li>
+					        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+					        <li class="page-item"><a href="#" class="page-link">4</a></li>
+					        <li class="page-item"><a href="#" class="page-link">5</a></li>
+					        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+				        </ul>
+	        </div>
+            <div>
+                <a asp-action="Create">Create New Item</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<!--chỉ cần có asp-action: ... để chạy vào đúng fuction cùng controller-->
+<!---->
+
+
+
