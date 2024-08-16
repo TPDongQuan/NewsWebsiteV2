@@ -19,7 +19,7 @@ namespace NewsWebsiteV2.Controllers.ListNewsAEdit
         {
             var login_token = Request.Cookies["login_token"];
             if (login_token != "tokenabcd") return View("AdminLogin");
-            var list = db.Query<ListNewsA>("select * from  ListNewsA").ToList();
+            var list = db.Query<ListNewsA>("select * from ListNewsA order by listnewsAID asc").ToList();
             return View(list);
         }
         public IActionResult Update(int listnewsAID) //Mở trang edit: Lấy khóa chính lên trước để xác định thông tin:
@@ -35,6 +35,8 @@ namespace NewsWebsiteV2.Controllers.ListNewsAEdit
             var model1 = db.QueryFirstOrDefault<ListNewsA>("select * from ListNewsA where listnewsAID = @listnewsAID", param: new { listnewsAID = model.listnewsAID  }); // tạo biến mới để xác định thông tin. gọi khóa chính lên
             model1.listnewsA = model.listnewsA; // đổi, gán biến mới vào 
             model1.cateID = model.cateID;
+            model1.bkgimg = model.bkgimg;
+            model1.listnewsAShortDes = model.listnewsAShortDes;
             var it = db.Update(model1);// lưu biến mới.
             return View("ThanhCong");
         }

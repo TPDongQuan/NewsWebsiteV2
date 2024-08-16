@@ -5,7 +5,7 @@
 }
 
 <div>
-    <form action="/NewsEdit/SubUpdate" class="login-form">
+    <div class="login-form">
         <div class="form-group">
             <input type="text" id="newsID" name="newsID" class="form-control rounded-left" placeholder="newsID" value="@Model.newsID" readonly>
         </div>
@@ -29,15 +29,40 @@
         <div class="form-group">
             <input type="text" id="DatePost" name="DatePost" class="form-control rounded-left" placeholder="DatePost" value="@Model.DatePost" required>
         </div>
-        <div class="form-group" asp-controller="NewsEdit" asp-action="ThanhCong" target="_blank">
-            <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Submit</button>
-        </div>
-    </form>
+        <button onclick="Editlog2()" class="btn btn-primary rounded submit p-3 px-5">Submit Edit</button>
+    </div>
     <div>
         <a asp-controller="NewsEdit" asp-action="NewsEditPage">Back to List</a>
     </div>
 </div>
-
+<script>
+    function Editlog2() {
+        $.ajax({
+            url: '@Url.Action("SubUpdate", "NewsEdit")',
+            type: "POST",
+            data: {
+                newsID: $('#newsID').val(),
+                titles: $('#titles').val(),
+                contents: $('#contents').val(),
+                authors: $('#authors').val(),
+                listnewsAID: $('#listnewsAID').val(),
+                DatePost: $('#DatePost').val(),
+            },
+            cache: !1,
+            success: function (result) {
+                if (result === true) { // phải ss cả loại biến là ===
+                    window.location = 'https://localhost:7250/NewsEdit/ThanhCong';
+                }
+                else {
+                    alert("Thất bại");
+                }
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");
+            }
+        });
+    }
+</script>
 <!--Quan hệ 1 - 1 nên k đổi listnewsID (cái nào của cái đó) ->
 @section Scripts{
     <!--thu vien di trươc sau đó code-->

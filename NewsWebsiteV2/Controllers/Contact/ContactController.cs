@@ -16,7 +16,7 @@ namespace NewsWebsiteV2.Controllers.Contact
         public IActionResult Contact(ContactModel model)
         {
             var login_token = Request.Cookies["login_token"];
-            if (login_token != "tokenabc") return View("Login");
+            if (login_token != "tokenabc") return RedirectToAction("Logout", "Login");
             return View();
         }
         public IActionResult SubContact(ContactModel model) //thi hành lệnh insert mới vào

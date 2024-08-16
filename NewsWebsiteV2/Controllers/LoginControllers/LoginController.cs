@@ -27,7 +27,7 @@ namespace NewsWebsiteV2.LoginControllers
                 var login = "tokenabc"; // đặt tên cookie token
                 CookieOptions options = new CookieOptions // Lệnh tự xóa tk sau 1 ngày
                 {
-                    Expires = DateTime.Now.AddSeconds(300) // Thời gian tồn tại.
+                    Expires = DateTime.Now.AddMinutes(300) // Thời gian tồn tại.
                     
                 };
                 string login_token = login; // lưu biến vừa đăng nhập
@@ -39,17 +39,17 @@ namespace NewsWebsiteV2.LoginControllers
             }
             return new Mess { checker = true, message = "Thành Công", status = 0 }; // Trả đúng tk true 
         }
+
+        [Route("~/Logout")]
         public IActionResult Logout()
         {
-            var login_token =""; // cho tài khoản = rỗng
-
-            CookieOptions options1 = new CookieOptions // Kiểm tra tài khoản rỗng
+            CookieOptions options1 = new CookieOptions // Kiểm tra tài khoản cookie rỗng
             {
                 Expires = DateTime.Now.AddSeconds(1) // sau 1s sẽ logout Cookie
             };
-            string login_token1 = login_token; // gán biến mới "rỗng" vào.
+            string login_token1 = ""; // gán biến mới "rỗng" vào.
             Response.Cookies.Append("login_token", login_token1, options1); // gán lưu vào cookie
-            return RedirectToActionPermanent("LoginPage"); // Giống View(). Nhưng chạy lại đúng Action.
+            return RedirectToAction("LoginPage"); // Giống View(). Nhưng chạy lại đúng Action.
         }
     }
 }

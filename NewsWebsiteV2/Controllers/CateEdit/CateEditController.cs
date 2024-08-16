@@ -18,7 +18,7 @@ namespace NewsWebsiteV2.Controllers.CateEdit
         {
             var login_token = Request.Cookies["login_token"];
             if (login_token != "tokenabcd") return View("AdminLogin");
-            var list = db.Query<Category>("select * from  Category").ToList();
+            var list = db.Query<Category>("select * from  Category order by cateID asc").ToList();
             return View(list);
         }
         public IActionResult Update(int cateID) //Mở trang edit: Lấy khóa chính lên trước để xác định thông tin:
@@ -53,7 +53,7 @@ namespace NewsWebsiteV2.Controllers.CateEdit
         {
             return View();
         }
-        public IActionResult Create(Category model) // gọi lên trang create
+        public IActionResult Create() // gọi lên trang create
         {
             var login_token = Request.Cookies["login_token"];
             if (login_token != "tokenabcd") return View("AdminLogin");

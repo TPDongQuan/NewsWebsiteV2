@@ -66,7 +66,9 @@
                                     <td>@Html.DisplayFor(modelItem => item.authors)</td>
                                     <td>@Html.DisplayFor(modelItem => item.listnewsAID)</td>
                                     <td>@Html.DisplayFor(modelItem => item.DatePost)</td>
-                                    <td>@Html.ActionLink("Edit","Update",item)</td>
+
+                                    <!--Chỉ gửi mỗi id thôi-->
+                                    <td>@Html.ActionLink("Edit", "Update", new { newsID = item.newsID })</td>
                                     <td>
                                         @Html.ActionLink("Delete","Delete",item)  <!-- ActionLink liên kết từ View-Controller vào Lệnh "Delete", giá ttri item đó-->
                                     </td>

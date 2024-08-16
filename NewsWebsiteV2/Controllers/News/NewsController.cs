@@ -15,7 +15,7 @@ namespace NewsWebsiteV2.Controllers.Categories
         public IActionResult News(int? listnewsAID = 0)
         {
             var login_token = Request.Cookies["login_token"];
-            if (login_token != "tokenabc") return View("Login");
+            if (login_token != "tokenabc") return RedirectToAction("Logout", "Login");
             var list = db.Query<News>("select * from News where listnewsAID = @listnewsAID ", new { listnewsAID = listnewsAID }).ToList();
             return View(list);
         }

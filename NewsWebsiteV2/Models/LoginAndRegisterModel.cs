@@ -20,5 +20,5 @@ namespace NewsWebsiteV2.Models
         Male,
         Female
     }
-    
+
 }

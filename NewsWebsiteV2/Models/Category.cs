@@ -9,5 +9,8 @@ namespace NewsWebsiteV2.Models
         public int cateID { get; set; }
         public string categories { get; set; }
         public string bkgimg { get; set; }
+        public string videolink { get; set; }
+        public int HTMLID { get; set; }
+        public string cateDes { get; set; }
     }
 }

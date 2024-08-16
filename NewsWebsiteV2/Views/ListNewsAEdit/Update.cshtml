@@ -6,19 +6,24 @@
 
 <div>
     <form action="/ListNewsAEdit/SubUpdate" class="login-form">
-                    <div class="form-group">
-		      			<input type="text" id="listnewsAID" name="listnewsAID" class="form-control rounded-left" placeholder="listnewsAID" value="@Model.listnewsAID" readonly>
-						  <!--value="..." để hiện dữ liệu cũ từ db lên, thay đổi và submit nó lên lại theo ô tương ứng -->
-		      		</div>
-		      		<div class="form-group">
-		      			<input type="text" id="listnewsA" name="listnewsA" class="form-control rounded-left" placeholder="listnewsA"  value="@Model.listnewsA"required>
-		      		</div>
-                    <div class="form-group">
-		      			<input type="text" id="cateID" name="cateID" class="form-control rounded-left" placeholder="cateID"  value="@Model.cateID"required>
-		      		</div>
-
-                      <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Submit</button>
-		</form>			
+        <div class="form-group">
+		    <input type="text" id="listnewsAID" name="listnewsAID" class="form-control rounded-left" placeholder="listnewsAID" value="@Model.listnewsAID" readonly>
+				<!--value="..." để hiện dữ liệu cũ từ db lên, thay đổi và submit nó lên lại theo ô tương ứng -->
+		</div>
+		<div class="form-group">
+			<input type="text" id="listnewsA" name="listnewsA" class="form-control rounded-left" placeholder="listnewsA" maxlength="55" value="@Model.listnewsA" required>
+		</div>
+        <div class="form-group">
+		    <input type="text" id="cateID" name="cateID" class="form-control rounded-left" placeholder="cateID"  value="@Model.cateID"required>
+		</div>
+		<div class="form-group">
+			<input type="text" id="bkgimg" name="bkgimg" class="form-control rounded-left" placeholder="bkgimg" value="@Model.bkgimg" required>
+		</div>
+		<div class="form-group">
+			<input type="text" id="listnewsAShortDes" name="listnewsAShortDes" class="form-control rounded-left" placeholder="listnewsAShortDes" value="@Model.listnewsAShortDes" maxlength="55" required>
+		</div>
+            <button type="submit" class="btn btn-primary rounded submit p-3 px-5">Submit</button>
+	</form>			
 	    <div>
             <a asp-controller="ListNewsAEdit" asp-action="ListNewsAEditPage">Back to List</a>
         </div>

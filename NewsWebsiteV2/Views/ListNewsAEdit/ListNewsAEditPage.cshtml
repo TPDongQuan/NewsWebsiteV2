@@ -38,6 +38,12 @@
                             CateID
                         </th>
                         <th>
+                            Background Image
+                        </th>
+                        <th>
+                            Short Description
+                        </th>
+                        <th>
                             Edit
                         </th>
                         <th>
@@ -54,6 +60,8 @@
                                     <td>@Html.DisplayFor(modelItem => item.listnewsAID)</td> <!--Truyền dữ liệu xuống -->
                                     <td>@Html.DisplayFor(modelItem => item.listnewsA)</td>
                                     <td>@Html.DisplayFor(modelItem => item.cateID)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.bkgimg)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.listnewsAShortDes)</td>
                                     <td>@Html.ActionLink("Edit","Update",item)</td>
                                     <td>
                                         @Html.ActionLink("Delete","Delete",item)  <!-- ActionLink liên kết từ View-Controller vào Lệnh "Delete", giá ttri item đó-->
@@ -64,16 +72,16 @@
                 </tbody>
             </table>
             <div class="clearfix">
-				        <div class="hint-text">Showing <b>5</b> out of <b>10</b> entries</div>
-				        <ul class="pagination">
-					        <li class="page-item disabled"><a href="#">Previous</a></li>
-					        <li class="page-item"><a href="#" class="page-link">1</a></li>
-					        <li class="page-item"><a href="#" class="page-link">2</a></li>
-					        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-					        <li class="page-item"><a href="#" class="page-link">4</a></li>
-					        <li class="page-item"><a href="#" class="page-link">5</a></li>
-					        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-				        </ul>
+				<div class="hint-text">Showing <b>5</b> out of <b>10</b> entries</div>
+				<ul class="pagination">
+					<li class="page-item disabled"><a href="#">Previous</a></li>
+					<li class="page-item"><a href="#" class="page-link">1</a></li>
+					<li class="page-item"><a href="#" class="page-link">2</a></li>
+					<li class="page-item active"><a href="#" class="page-link">3</a></li>
+					<li class="page-item"><a href="#" class="page-link">4</a></li>
+					<li class="page-item"><a href="#" class="page-link">5</a></li>
+					<li class="page-item"><a href="#" class="page-link">Next</a></li>
+				</ul>
 	        </div>
             <div>
               <a asp-action="Create">Create new Item</a>

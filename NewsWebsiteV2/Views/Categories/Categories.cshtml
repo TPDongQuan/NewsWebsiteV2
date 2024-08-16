@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Category>
+﻿@model AllLayout
+
 @{
     ViewData["Title"] = "Categories Page";
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
@@ -12,39 +13,45 @@
         <meta name="author" content=""/>
         <link href ="C:\Theme-template-boostrap5-free-test\Pictures\download2.png" rel ="icon">
         <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        @* <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" /> *@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href ="~/img/download2.ico" rel="icon" type="image/x-icon"/>
-        
+        <meta charset="utf-8">
+        <script src="/js/listnewjs/modernizr.js"></script>
+
+        <!--1. paceload JS-->
+        <script src="/js/listnewjs/pace.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+
+        <!--2. preload css-->
+        <link rel="stylesheet" href="~/css/preloader.css">  
     </head>
-    <body>
+
+<body id="top">
 
  <!-- Page Header-->
-        <header class="masthead" style="background-image: url('/img/Category.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1><i>Category</i></h1>
-                            <span class="subheading">Make your own choices</span>
-                        </div>
+@if (Model != null)
+    {
+    <header class="masthead" style="background-image: url('/img/Category.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1><i>Category</i></h1>
+                        <span class="subheading">Make your own choices</span>
                     </div>
                 </div>
             </div>
-        </header>
-    <body>
-<!-- Add your content of header -->
-<!-- Add your site or app content here -->
+        </div>
+    </header>
+    <!--Cần sửa thêm: chưa xong-->
 
-<div class="hero-full-wrapper">
-  <div class="grid">
-  <div class="gutter-sizer"></div>
-    <div class="grid-sizer"></div>
-        @if (Model != null)
-        {
+    <div class="hero-full-wrapper">
+        @* <div class="grid">
             @foreach (var item in Model)
             {
                 <div class="grid-item" style="background-image: url('@item.bkgimg')">
@@ -60,43 +67,353 @@
                     </a>
                 </div>
             }
-        }
+
+        </div> *@
+    </div>
+        @* style = "background-image: url(../img/imgCate/home-bg.png); border-bottom: 20px" *@
+    <div>
+        <div class="mt-0 pt-0" >
+            <div class="ml-0 mr-0 pb-1">
+                <nav class="navbar navbar-expand-md">
+
+                    <button class="navbar-toggler ml-auto" data-target="#my-nav" data-toggle="collapse"
+                    aria-controls="my-nav" aria-expanded="false" onclick="myFunction(this)"
+                    aria-label="Toggle navigation">
+                        <span class="bar1"></span> <span class="bar2"></span> <span class="bar3"></span>
+                    </button>
+                        <div id="my-nav" class="collapse navbar-collapse" style="background-color: #f5f5f5; padding: 10px;">
+                        <ul class="navbar-nav mx-auto">
+                            <!--Này sẽ là Cate-->
+                            @* <li class="nav-item">
+                                <a class="nav-link" href="article.html">NEWS</a>
+                            </li> *@
+                            
+                            @foreach (var item in Model.Categories)
+                            {
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/ListNewsA/?cateID=@item.cateID" style="color: black">@Html.DisplayFor(modelItem => item.categories)</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <form action="" method="POST">
+                                    <div class="input-group mt-0 mx-auto" style="width:16px;">
+
+                                        <div class="">
+                                            <img src="/img/imgCate/search-icon.png" id="toggle-search"
+                                                 class="ml-2 toggle-search" alt="search icon">
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="row ml-0 mr-0" style="color: white">
+                @{
+                    int n = 0;
+                }
+                @foreach (var item in Model.Categories)
+                {
+                    if(item.HTMLID == 1)
+                    {
+                        <!--Mấy cái style css nên chỉnh trong file css-->
+                        <div class="col-md-6 pr-0" style="padding: 0px;">
+                            <div class="card">
+                                <img class="card-img" src="@item.bkgimg" alt="" style="height: 490px;">
+                                <div class="card-img-overlay d-flex align-items-center justify-content-center flex-column">
+                                    <p>@item.categories</p>
+                                    <hr />
+                                    <h2>
+                                        @item.cateDes
+                                    </h2>
+                                        <a href="/ListNewsA/?cateID=@item.cateID" class="btn" style="color:white">READ MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    if (item.HTMLID == 2)
+                    {
+                        n++;
+                        if (n == 5) break; // code C# chỉ lấy 4 cate hiện ra thôi. Vì nd giống nhau nên chỉ cần chỉnh sửa không cần service mới.
+
+                        <!--Này sẽ là List News nổi bật:-->
+                        <div class="col-md-3 pl-0 pr-0 first">
+                            <div class="card">
+                                <img class="card-img" style="height: 200px;" src="@item.bkgimg" alt="">
+                                <div class="card-img-overlay">
+                                    <h5><a href="~/ListNewsA/?cateID=@item.cateID" style="color:white">@Html.DisplayFor(modelItem => item.categories)</a></h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        
+        <div class="container-fluid video-player">
+            <div class="container">
+                @foreach (var item in Model.TopVideo)
+                {
+                    <!--Nếu bị Denied thì dùng công thức src "https://www.youtube.com/embed/VIDEO_ID"-->
+                    <div class="screen embed-responsive embed-responsive-16by9">
+                        <iframe id="screen" src="@item.Video_Link" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    </div>
+                }
+                <div class="play-list">
+                    <div class="owl-carousel owl-carousel4 owl-theme">
+                        @foreach (var item in Model.Video)
+                        {
+                            <div>
+                                <div class="card">
+                                    <img class="card-img link-img" style="width: 163px; height: 115px;"
+                                        data-link="@item.Video_Link" src="@item.Video_SmallImg"
+                                        alt="">
+                                </div>
+                            </div>
+                        }
+                        
+                        @* <div>
+                            <div class="card">
+                                <img class="card-img link-img"
+                                data-link="https://www.youtube.com/embed/rMT8CffVFMk" src="~/img/imgCate/play2.png"
+                                alt="">
+
+                            </div>
+                        </div> *@
+                    </div>
+                </div>
+                <hr>
+
+                <!--Nên chia thành từng mục với từng loại id html-->
+                <h2 class="text-uppercase text-center">Latest News</h2>
+
+                <div class="row vr-gallery">
+                    @foreach (var item in Model.ListNewsA)
+                    {
+                        <div class="col-md-8 mb-4">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-7 pr-0 pd-md">
+                                    <img src="@item.bkgimg" alt="">
+                                </div>
+                                <div class="col-md-12 col-lg-5 light-bg cus-pd cus-arrow-left">
+                                    <p><small>march 27, 2020</small></p>
+                                    <h3>
+                                        <a href="~/News/News/?listnewsAID=@item.listnewsAID">@item.listnewsA</a>
+                                    </h3>
+                                    <p>
+                                        @item.listnewsAShortDes
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 pl-4 mb-4">
+                            <div class="card">
+                                <!--Co the can img 2 co1 da -->
+                                <img class="card-img h-100" src="@item.bkgimg" alt="">
+                                <div class="card-img-overlay opacity text-center">
+                                    <a class="play-1" href="@item.Video_Link">
+                                        <img src="~/img/imgCate/play-icon.png" alt="">
+                                    </a>
+                                    <h5 class="card-title">@item.listnewsA</h5>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                   @*  <div class="col-md-8 mb-4">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-7 pr-0 pd-md">
+                                <img src="~/img/imgCate/gallery-img4.jpg" alt="">
+                            </div>
+                            <div class="col-md-12 col-lg-5 light-bg cus-pd cus-arrow-left">
+                                <p><small>march 27, 2020</small></p>
+                                <h3>
+                                    Trendy Summer
+                                    Fashion
+                                </h3>
+                                <p>
+                                    To take a trivial example, which of us ever undertakes laborious physical exercise,
+                                    except to obtain some advantage from it? But who has any right to find fault with a man
+                                    who chooses...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 pl-4 mb-4">
+                        <div class="card">
+                            <img class="card-img h-100" src="~/img/imgCate/video-cover2.jpg" alt="">
+                            <div class="card-img-overlay opacity text-center">
+                                <a class="play-1" href="https://www.youtube.com/watch?v=vpO8sZDxOGI">
+                                    <img src="~/img/imgCate/play-icon.png" alt="">
+                                </a>
+                                <h5 class="card-title">Weekend In Boston</h5>
+
+                            </div>
+                        </div>
+                    </div> *@
+                    <div class="col-md-8 mb-4 pr-0 pd-md">
+                        <div class="card">
+                            <img class="card-img h-100" src="~/img/imgCate/gallery-img2.jpg" alt="">
+                            <div class="card-img-overlay">
+                                <div class="contact-box">
+                                    <p><small>march 27, 2020</small></p>
+                                    <h3>
+                                        Trendy Summer
+                                        Fashion
+                                    </h3>
+                                    <p>
+                                        To take a trivial example, which of us ever undertakes laborious physical exercise,
+                                        some advantage from it? fault with a man who chooses...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 pl-4 mb-4">
+                        <div class="card">
+                            <img class="card-img-top" src="~/img/imgCate/gallery-img3.jpg" alt="">
+                            <div class="card-body bg-gray cus-pd2 cus-arrow-up">
+                                <p><small>march 27, 2020</small></p>
+                                <h3>
+                                    Trendy Summer
+                                    Fashion
+                                </h3>
+                                <p>
+                                    To take a trivial example, which of us ever undertakes laborious physical exercise, some
+                                    advantage from it? fault with a man who chooses...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <a href="#" class="btn">LOAD MORE</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid fh5co-recent-news mt-5 pb-5">
+            <h2 class="text-uppercase text-center">All Categories</h2>
+            <hr class="mx-auto" />
+
+            <div class="play-list mt-5 pt-4">
+                <div class="owl-carousel owl-carousel5 owl-theme">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <div>
+                            <div class="card">
+                                <img class="card-img link-img" src="~/img/imgCate/news6.png" alt="">
+                                <div class="card-img-overlay">
+                                    <div class="top-area">
+                                        <a href="#" class="text-center d-block">
+                                            <i class="far fa-heart"></i>
+                                        </a>
+                                    </div>
+                                    <div class="bottom-area">
+                                        <div class="row">
+                                            <div class="col-5 pr-0 text-white">
+                                                <a href="#" class="text-white"> <i class="fas fa-retweet"></i> Share</a>
+                                            </div>
+                                            <div class="col  pl-0   text-right">
+                                                <a href="#" class="text-white">
+                                                    June 3, 2019
+                                                    &nbsp; 6 <i class="far fa-comments"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                            <h4 class="text-white mt-2"><a href="#" style="color:white">@item.categories</a></h4>
+                                        <p class="text-white">Jhone Doe</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                   @*  <div>
+                        <div class="card">
+                            <img class="card-img link-img" src="~/img/imgCate/news2.png" alt="">
+                            <div class="card-img-overlay">
+                                <div class="top-area">
+                                    <a href="#" class="text-center d-block">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                                <div class="bottom-area">
+                                    <div class="row">
+                                        <div class="col-5 pr-0 text-white">
+                                            <a href="#" class="text-white"> <i class="fas fa-retweet"></i> Share</a>
+                                        </div>
+                                        <div class="col  pl-0   text-right">
+                                            <a href="#" class="text-white">
+                                                June 3, 2019
+                                                &nbsp; 6 <i class="far fa-comments"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <h4 class="text-white mt-2">Xiaomi Hao Gertion Hones</h4>
+                                    <p class="text-white">Jhone Doe</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> *@
+                </div>
+            </div>
+        </div>
+    </div>
+    }
     
-  
- </div>
-</div>
 
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID 
 
-<script>
-  document.addEventListener("DOMContentLoaded", function (event) {
-     masonryBuild();
-  });
-</script>
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-XXXXX-X', 'auto');
+      ga('send', 'pageview');
+    </script>
 
-</main>
+    -->
 
-<script>
-document.addEventListener("DOMContentLoaded", function (event) {
-  navbarToggleSidebar();
-  navActivePage();
-});
-</script>
+    <!--3. preload html-->
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+    @* <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            masonryBuild();
+        });
+    </script>
 
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID 
-
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-  ga('create', 'UA-XXXXX-X', 'auto');
-  ga('send', 'pageview');
-</script>
-
---><script type="text/javascript" src="./main41.js"></script></body>
-    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            navbarToggleSidebar();
+            navActivePage();
+        });
+    </script> *@
+    <script type="text/javascript" src="./main41.js"></script>
+    <script src="~/js/catejs/popper.min.js"></script>
+    <script src="~/js/catejs/jquery-1.12.0.min.js"></script>
+    <script src="~/js/catejs/bootstrap.min.js"></script>
+    <script src="~/js/catejs/owl.carousel.min.js"></script>
+    <script src="~/js/catejs/jquery.yu2fvl.js"></script>
+    <script src="~/js/catejs/main.js"></script>
+    
+ 
+    <!--4.JS Preload-->
+    <script src="/js/listnewjs/main.js"></script>
+    <script type="text/javascript" src="./main41.js"></script> 
+</body>
 </html>
 
 <!--

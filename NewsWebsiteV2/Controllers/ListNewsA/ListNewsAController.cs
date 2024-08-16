@@ -12,10 +12,14 @@ namespace NewsWebsiteV2.Controllers.Categories
         {
             db = new SqlConnection(configuration.GetConnectionString("DbConn"));
         }
+
+        [Route("~/ListNewsA")]
+
+        // Nên ktra kĩ: return Logout
         public IActionResult ListNewsA(int? cateID = 0 )
         {
             var login_token = Request.Cookies["login_token"];
-            if (login_token != "tokenabc") return View("Login");
+            if (login_token != "tokenabc") return RedirectToAction("Logout", "Login");
             var list = db.Query<ListNewsA>("select * from  ListNewsA where cateID = @cateID", new { cateID = cateID}).ToList(); //tạo list 
             return View(list);
         }

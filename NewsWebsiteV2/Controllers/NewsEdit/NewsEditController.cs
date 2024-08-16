@@ -18,7 +18,7 @@ namespace NewsWebsiteV2.Controllers.CateEdit
         {
             var login_token = Request.Cookies["login_token"];
             if (login_token != "tokenabcd") return View("Login");
-            var list = db.Query<News>("select * from News").ToList();
+            var list = db.Query<News>("select * from News order by newsID asc").ToList();
             return View(list);
         }
         public IActionResult Update(int newsID) //Mở trang edit: Lấy khóa chính lên trước để xác định thông tin:
@@ -28,16 +28,27 @@ namespace NewsWebsiteV2.Controllers.CateEdit
             var model1 = db.QueryFirstOrDefault<News>("select * from News where newsID = @newsID", param: new { newsID = newsID }); // Hiển thị ID đã có sãn
             return View(model1); // Trả đó ID ra
         }
+
+        [HttpPost]
         public IActionResult SubUpdate(News model) // Hành động edit: Sau khi xác định, tiến hành sửa thông tin:
         {
-            var model1 = db.QueryFirstOrDefault<News>("select * from News where newsID = @newsID", param: new { newsID = model.newsID }); // tạo biến mới để xác định thông tin. gọi khóa chính lên
-            model1.titles = model.titles; // đổi, gán biến mới vào
-            model1.contents = model.contents; // đổi, gán biến mới vào 
-            model1.authors = model.authors; // đổi, gán biến mới vào
-            model1.listnewsAID = model.listnewsAID;
-            model1.DatePost = model.DatePost;
-            var it = db.Update(model1);// hành động dapper lưu biến mới.
-            return View("ThanhCong");
+            try
+            {
+                var model1 = db.QueryFirstOrDefault<News>("select * from News where newsID = @newsID", param: new { newsID = model.newsID }); // tạo biến mới để xác định thông tin. gọi khóa chính lên
+                model1.titles = model.titles; // đổi, gán biến mới vào
+                model1.contents = model.contents; // đổi, gán biến mới vào 
+                model1.authors = model.authors; // đổi, gán biến mới vào
+                model1.listnewsAID = model.listnewsAID;
+                model1.DatePost = model.DatePost;
+                var it = db.Update(model1);// hành động dapper lưu biến mới.
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
+            
+            
         }
         public IActionResult Delete(News model) // gọi tất cả mục và giá trị ra để xóa hết
         {
@@ -62,18 +73,20 @@ namespace NewsWebsiteV2.Controllers.CateEdit
             if (login_token != "tokenabcd") return View("AdminLogin");
             return View(); //trả view
         }
+
+        [HttpPost]
         public IActionResult SubCreate(News model) //thi hành lệnh insert mới vào
         {
             try
             {
                 var it = db.Insert(model); // hành động insert
+                return Json(true);
             }
             catch (Exception ex)
             {
                 var i = ex;
+                return Json(false);
             }
-            return View("ThanhCong");
-
         }
     }
 }

@@ -26,7 +26,7 @@ namespace NewsWebsiteV2.Controllers.AdminControllers
                 var login2 = "tokenabcd"; // đặt tên cookie token
                 CookieOptions options = new CookieOptions // Lệnh tự xóa tk sau 1 ngày
                 {
-                    Expires = DateTime.Now.AddSeconds(300) // Thời gian tồn tại.
+                    Expires = DateTime.Now.AddMinutes(300) // Thời gian tồn tại.
                 };
                 string login_token = login2; // lưu biến vừa đăng nhập
                 Response.Cookies.Append("login_token", login_token, options); // lưu đăng nhập, add vào cookie
